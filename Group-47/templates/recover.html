@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+ 
+{% block body %}
+{%for row in d[0]%}
+  <h1 style="color:white">Answer Your Recovery Questions</h1>
+  <form action="/verify/{{d[1]}}" method="POST">
+    <div class="form-group">
+      <label style="color:white">{{row.0}}:</label>
+      <input type="text" name="A1" class="form-control">
+    </div>
+    <div class="form-group">
+      <label style="color:white">{{row.1}}:</label>
+      <input type="text" name="A2" class="form-control">
+    </div>
+      <div class="form-group">
+      <label style="color:white">{{row.2}}:</label>
+      <input type="text" name="A3" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{%endfor%}
+{% endblock %}

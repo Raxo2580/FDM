@@ -1,0 +1,256 @@
+
+<html >
+<head>
+
+    <title>Employee Management</title>
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static', filename='A_Black_Star.png')}}">
+</head>
+{% extends 'layout.html' %}
+<body background="/static/bg.jpg">
+{% block body%}
+
+<div class="container" >
+    <div class="well text-center">
+        <h1 style="color:SeaGreen"><b>FDM Employee Database</b></h1>
+    </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-md-12">
+
+             <h2 style="color:LightSkyBlue"><b> List of Employees</b> <button type="button " class="btn btn-info pull-right" data-toggle="modal" data-target="#mymodal">
+                 Add new Employee</button></h2>
+
+             {% with messages=get_flashed_messages() %}
+             {% if messages %}
+             {% for message in messages %}
+             <div class="alert alert-success alert-dismissible" role="alert">
+                 <button typr="button" class="close" data-dismiss="alert" aria-label="close">
+                     <span aria-hidden="true">x</span>
+                 </button>
+                      {{message}}
+             </div>
+
+             {%endfor%}
+             {%endif%}
+             {%endwith%}
+
+             <table class="table table-striped"  >
+                 <tr style="background:transparent">
+                     <th style="color:LightSkyBlue">ID</th>
+                     <th style="color:LightSkyBlue">Username</th>
+                      <th style="color:LightSkyBlue">Password</th>
+                     <th style="color:LightSkyBlue">Name</th>
+                     <th style="color:LightSkyBlue">Position</th>
+                     <th style="color:LightSkyBlue">Email</th>
+                     <th style="color:LightSkyBlue">Action</th>
+                 </tr>
+
+                 {% for row in employees%}
+                 <tr style="background:transparent">
+                      <td style="color:LightSeaGreen">{{row.0}}</td>
+                      <td style="color:LightSeaGreen">{{row.1}}</td>
+                      <td style="color:LightSeaGreen">{{row.2}}</td>
+                      <td style="color:LightSeaGreen">{{row.3}}</td>
+                      <td style="color:LightSeaGreen">{{row.4}}</td>
+                      <td style="color:LightSeaGreen">{{row.5}}</td>
+
+
+                     <td>
+                         <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+                         <a href="/delete/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure ?')">Delete</a>
+                     </td>
+                 </tr>
+
+
+
+
+
+
+    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">Please Update Data</h4>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form action="{{url_for('update')}}" method="POST">
+
+                        <div class="form-group">
+
+                            <lebel>Username:</lebel>
+
+                            <input type="text" class="form-control"  name="username" value="{{row.1}}">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Password:</lebel>
+
+                            <input  type="text" class="form-control"  name="password" value="{{row.2}}">
+
+                        </div>
+                        <div class="form-group">
+
+                            <lebel>Name:</lebel>
+
+                            <input type="hidden" name="id" value="{{row.0}}">
+
+                            <input type="text" class="form-control"  name="name" value="{{row.3}}">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Position:</lebel>
+
+                            <input type="text" class="form-control"  name="position" value="{{row.4}}">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Email:</lebel>
+
+                            <input type="text" class="form-control"  name="email" value="{{row.5}}">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <button class="btn btn-primary" type="submit">Update</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+                  {% endfor %}
+
+             </table>
+         </div>
+
+
+
+
+
+
+    <div id="mymodal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title">Please Insert Data</h4>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form action="{{url_for('insert')}}" method="POST">
+
+
+                        <div class="form-group">
+
+                            <lebel>Name:</lebel>
+
+                            <input type="text" class="form-control"  name="name" required="1">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Position:</lebel>
+
+                            <input type="text" class="form-control"  name="position" required="1">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Email:</lebel>
+
+                            <input type="text" class="form-control"  name="email" required="1">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Username:</lebel>
+
+                            <input type="text" class="form-control"  name="username" required="1">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <lebel>Password:</lebel>
+
+                            <input  type="text" class="form-control"  name="password" required="1">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <button class="btn btn-primary" type="submit">Submit</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+{%endblock%}
+
+
+</body>
+<script type="text/javascript" src="{{url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<div class="well" style="background:transparent">
+    <h3 ><pre style="background:transparent,color:white">SE GROUP-47
+        <span class="pull-right"><a href="https://www.fdmgroup.com/"> © FDM Group 2021</a></span></pre></h3>
+</div>
+
+</html>

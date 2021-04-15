@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+ 
+{% block body %}
+  <h1 style="color:white">Trying to recover your account?</h1>
+
+  <form action="/recover" method="POST">
+    <div class="form-group">
+      <label style="color:white">Username:</label>
+      <input type="text" name="account" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+    <div id="mymodal" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    <h4 class="modal-title" style="color:white">Please Enter Your Expense</h4>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form action="/recover" method="POST">
+
+
+                        <div class="form-group">
+
+                            <lebel>Username:</lebel>
+
+                            <input type="text" class="form-control" name="account" required="1">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <button class="btn btn-primary" type="submit">Submit</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
